@@ -1,21 +1,26 @@
+# Version de docker compose
 version: '3.8'
 
+# Definir los servicios del entorno
 services:
+  # Servicio: aplicacion v1
   v1:
-    build: ./v1
-    container_name: app_v1
+    build: ./v1 # Construye la imagen usando el Dockerfile en la carpeta v1
+    container_name: app_v1 # Asignar nombre del contenedor
 
+  # Servicio: aplicacion v2
   v2:
-    build: ./v2
-    container_name: app_v2
+    build: ./v2 # Construye la imagen usando el Dockerfile en la carpeta v2
+    container_name: app_v2 # Asignar nombre del contenedor
 
+  # Servicio de NGINX que funcionara como proxy inverso y balanceador de trafico
   nginx:
-    image: nginx:latest
-    container_name: nginx_canary
+    image: nginx:latest #Imagen NGINX
+    container_name: nginx_canary # Asignar nombre del contenedor
     ports:
-      - "8080:80"
+      - "8080:80" # Exponee el puerto 80 del contenedor en el puerto 8080 del host
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Configuracion personalizada de NGINX
     depends_on:
-      - v1
-      - v2
+      - v1 # Asegurar que la aplicacion v1 se inicie antes que NGINX
+      - v2 # Asegurar que la aplicacion v2 tambien este corriendo
