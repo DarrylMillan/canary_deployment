@@ -18,8 +18,8 @@ canary-demo/
 
 ## 🚀 How It Works
 
-- **aplication-v1**: Represents the stable production version.
-- **aplication-v2**: Represents the new canary version.
+- **Application - v1**: Represents the stable production version.
+- **Application - v2**: Represents the new canary version.
 - **NGINX**: Routes 80% of the traffic to v1 and 20% to v2 based on weights.
 - **Docker Compose**: Orchestrates the services in a single command.
 
@@ -49,18 +49,18 @@ canary-demo/
 
 ## 📝 Explanation of NGINX Canary Configuration
 
-In `nginx/default.conf`:
+In `nginx/nginx.conf`:
 
 ```nginx
 upstream backend {
-    server app-v1:5000 weight=8;
-    server app-v2:5000 weight=2;
+    server v1:5000 weight=8;
+    server v2:5000 weight=2;
 }
 ```
 
 This means:
-- `app-v1` receives 80% of traffic
-- `app-v2` receives 20% of traffic
+- `v1` receives 80% of traffic
+- `v2` receives 20% of traffic
 
 ## 📌 License
 
